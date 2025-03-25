@@ -1,24 +1,37 @@
-import { Outlet, createRootRouteWithContext } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
+import {
+  HeadContent,
+  Outlet,
+  createRootRouteWithContext,
+} from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
-import Header from '../components/Header'
+import { Toaster } from "react-hot-toast";
 
-import TanstackQueryLayout from '../integrations/tanstack-query/layout'
+import TanstackQueryLayout from "../integrations/tanstack-query/layout";
 
-import type { QueryClient } from '@tanstack/react-query'
+import type { QueryClient } from "@tanstack/react-query";
+
 interface MyRouterContext {
-  queryClient: QueryClient
+  queryClient: QueryClient;
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: () => (
     <>
-      <Header />
-
+      <HeadContent />
       <Outlet />
       <TanStackRouterDevtools />
-
       <TanstackQueryLayout />
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        }}
+      />
     </>
   ),
-})
+});
