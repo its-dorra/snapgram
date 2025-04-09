@@ -1,22 +1,22 @@
-import { queryKeys } from "@/lib/queryKeys";
 import { logout } from "@/services/auth-api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import toast from "react-hot-toast";
 
-export const useLogout = () => {
+export function useLogout() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: logout,
+
     onSuccess: () => {
-      toast.success("Logout successful");
-      queryClient.invalidateQueries({ queryKey: queryKeys.auth });
+      queryClient.clear();
       navigate({ to: "/login", replace: true });
+      toast.success("Logout successful");
     },
     onError: (error) => {
-      toast("Logout failed\n" + error.message);
+      toast(`Logout failed\n${error.message}`);
     },
   });
-};
+}

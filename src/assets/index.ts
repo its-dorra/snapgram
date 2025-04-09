@@ -24,13 +24,16 @@ import searchIcon from "@/assets/icons/search.svg";
 import shareIcon from "@/assets/icons/share.svg";
 import wallpaperIcon from "@/assets/icons/wallpaper.svg";
 
+import animePic from "@/assets/images/anime-pic.jpg";
 // images
 import logo from "@/assets/images/logo.svg";
 import profile from "@/assets/images/profile.png";
 import sideImage from "@/assets/images/side-img.svg";
+import { linkOptions } from "@tanstack/react-router";
 
 export {
   addPostIcon,
+  animePic,
   backIcon,
   bookmarkIcon,
   chatIcon,
@@ -42,19 +45,118 @@ export {
   galleryAddIcon,
   googleIcon,
   homeIcon,
-  likeIcon,
   likedIcon,
+  likeIcon,
   loaderIcon,
+  logo,
   logoutIcon,
   peopleIcon,
   postsIcon,
+  profile,
   profilePlaceholderIcon,
-  saveIcon,
   savedIcon,
+  saveIcon,
   searchIcon,
   shareIcon,
-  wallpaperIcon,
-  logo,
-  profile,
   sideImage,
+  wallpaperIcon,
 };
+
+export const sidebarLinks = [
+  {
+    imgURL: homeIcon,
+    route: linkOptions({ to: "/" }),
+    label: "Home",
+  },
+  {
+    imgURL: wallpaperIcon,
+    route: linkOptions({ to: "/explore" }),
+    label: "Explore",
+  },
+  {
+    imgURL: peopleIcon,
+    route: linkOptions({ to: "/all-users" }),
+    label: "People",
+  },
+  {
+    imgURL: bookmarkIcon,
+    route: linkOptions({ to: "/saved" }),
+    label: "Saved",
+  },
+  {
+    imgURL: galleryAddIcon,
+    route: linkOptions({ to: "/create-post" }),
+    label: "Create Post",
+  },
+];
+
+export const bottombarLinks = [
+  {
+    imgURL: homeIcon,
+    route: linkOptions({ to: "/" }),
+    label: "Home",
+  },
+  {
+    imgURL: wallpaperIcon,
+    route: linkOptions({ to: "/explore" }),
+    label: "Explore",
+  },
+  {
+    imgURL: bookmarkIcon,
+    route: linkOptions({ to: "/saved" }),
+    label: "Saved",
+  },
+  {
+    imgURL: galleryAddIcon,
+    route: linkOptions({ to: "/create-post" }),
+    label: "Create",
+  },
+];
+
+export const posts = [
+  {
+    user: {
+      name: "Anime Fanatic",
+      imageUrl: profile,
+    },
+    content: "Just finished watching Attack on Titan. What a masterpiece!",
+    tags: ["anime", "AttackOnTitan", "masterpiece"],
+    imageUrl: animePic,
+  },
+  {
+    user: {
+      name: "Manga Lover",
+      imageUrl: profile,
+    },
+    content: "Reading One Piece is the highlight of my week!",
+    tags: ["manga", "OnePiece", "adventure"],
+    imageUrl: animePic,
+  },
+  {
+    user: {
+      name: "Otaku Sensei",
+      imageUrl: profile,
+    },
+    content: "Naruto's journey is so inspiring. Believe it!",
+    tags: ["anime", "Naruto", "inspiration"],
+    imageUrl: animePic,
+  },
+  {
+    user: {
+      name: "Studio Ghibli Fan",
+      imageUrl: profile,
+    },
+    content: "Spirited Away is a timeless classic.",
+    tags: ["anime", "StudioGhibli", "classic"],
+    imageUrl: animePic,
+  },
+  {
+    user: {
+      name: "Shonen Enthusiast",
+      imageUrl: profile,
+    },
+    content: "Dragon Ball Z will always be legendary.",
+    tags: ["anime", "DragonBallZ", "legendary"],
+    imageUrl: animePic,
+  },
+];

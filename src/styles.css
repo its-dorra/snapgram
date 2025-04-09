@@ -141,10 +141,10 @@ code {
 
 @layer base {
   * {
-    @apply box-border list-none p-0 m-0 scroll-smooth;
+    @apply m-0 box-border list-none scroll-smooth p-0;
   }
   body {
-    @apply bg-dark-1 text-white min-h-screen font-inter;
+    @apply bg-dark-1 font-inter min-h-screen text-white;
   }
 }
 
@@ -155,46 +155,80 @@ code {
 
 @layer utilities {
   .h1-bold {
-    @apply text-[36px] font-bold leading-[140%] tracking-tighter;
+    @apply text-[36px] leading-[140%] font-bold tracking-tighter;
   }
 
   .h1-semibold {
-    @apply text-[36px] font-semibold leading-[140%] tracking-tighter;
+    @apply text-[36px] leading-[140%] font-semibold tracking-tighter;
   }
 
   .h2-bold {
-    @apply text-[30px] font-bold leading-[140%] tracking-tighter;
+    @apply text-[30px] leading-[140%] font-bold tracking-tighter;
   }
 
   .h3-bold {
-    @apply text-[24px] font-bold leading-[140%] tracking-tighter;
+    @apply text-[24px] leading-[140%] font-bold tracking-tighter;
   }
 
   .base-semibold {
-    @apply text-[16px] font-semibold leading-[140%] tracking-tighter;
+    @apply text-[16px] leading-[140%] font-semibold tracking-tighter;
   }
 
   .base-medium {
-    @apply text-[16px] font-medium leading-[140%];
+    @apply text-[16px] leading-[140%] font-medium;
   }
 
   .base-regular {
-    @apply text-[16px] font-normal leading-[140%];
+    @apply text-[16px] leading-[140%] font-normal;
   }
 
   .body-bold {
-    @apply text-[18px] font-bold leading-[140%];
+    @apply text-[18px] leading-[140%] font-bold;
   }
 
   .body-medium {
-    @apply text-[18px] font-medium leading-[140%];
+    @apply text-[18px] leading-[140%] font-medium;
   }
 
   .small-semibold {
-    @apply text-[14px] font-semibold leading-[140%] tracking-tighter;
+    @apply text-[14px] leading-[140%] font-semibold tracking-tighter;
   }
 
   .small-medium {
-    @apply text-[14px] font-medium leading-[140%];
+    @apply text-[14px] leading-[140%] font-medium;
+  }
+
+  .small-regular {
+    @apply text-[14px] leading-[140%] font-normal;
+  }
+
+  .subtle-semibold {
+    @apply text-[12px] leading-[140%] font-semibold;
+  }
+
+  .tiny-medium {
+    @apply text-[10px] leading-[140%] font-medium;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+    border-radius: 2px;
+    z-index: 9999;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #09090a;
+    z-index: 9999;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #5c5c7b;
+    border-radius: 50px;
+    z-index: 9999;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #7878a3;
   }
 }

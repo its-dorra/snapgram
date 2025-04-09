@@ -1,23 +1,27 @@
-import { z } from "zod";
+import { type } from "arktype";
 
-export const loginSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters long" }),
+const Email = type("string.email").configure({
+  problem: () => "Invalid email, Plz provide a valid one.",
 });
 
-export const signupSchema = z
-  .object({
-    email: z.string().email({ message: "Invalid email address" }),
-    name: z
-      .string()
-      .min(3, { message: "Name must be at least 3 characters long" }),
-    password: z
-      .string()
-      .min(8, { message: "Password must be at least 8 characters long" }),
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-  });
+const Password = type("string <= 8").configure({
+  problem: () => "Password must be at least 8 chars long.",
+});
+
+export const loginSchema = type({
+  email: Email,
+  password: Password,
+});
+
+export const signupSchema = type({
+  email: Email,
+  name: type.string
+    .atLeastLength(3)
+    .configure({ problem: () => "Must provide a valid name." }),
+  password: Password,
+  confirmPassword: "string",
+}).narrow(({ password, confirmPassword }, ctx) => {
+  return password === confirmPassword
+    ? true
+    : ctx.mustBe("Password do not match");
+});

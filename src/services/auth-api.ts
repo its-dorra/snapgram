@@ -5,18 +5,7 @@ export const login = async (credentials: {
   email: string;
   password: string;
 }) => {
-  const { data, error } = await authClient.signIn.email(credentials, {
-    onSuccess: () => {
-      toast.success("Login successful");
-    },
-    onError: (ctx) => {
-      const message =
-        ctx.error.status === 403
-          ? "Please verify your email address"
-          : ctx.error.message;
-      toast.error("Login failed \n" + message);
-    },
-  });
+  const { data, error } = await authClient.signIn.email(credentials);
   if (error) {
     throw error;
   }
@@ -72,16 +61,7 @@ export const signUp = async (userInfo: {
   name: string;
   imageUrl?: string;
 }) => {
-  const { data, error } = await authClient.signUp.email(userInfo, {
-    onSuccess: () => {
-      toast.success(
-        "You have successfully signed up, please check your email to verify your account"
-      );
-    },
-    onError: (ctx) => {
-      toast.error("Signup failed\n" + ctx.error.message);
-    },
-  });
+  const { data, error } = await authClient.signUp.email(userInfo);
 
   if (error) {
     throw error;
@@ -90,16 +70,7 @@ export const signUp = async (userInfo: {
 };
 
 export const logout = async () => {
-  const { data, error } = await authClient.signOut({
-    fetchOptions: {
-      onSuccess: () => {
-        toast("Logout successful");
-      },
-      onError: (ctx) => {
-        toast("Logout failed\n" + ctx.error.message);
-      },
-    },
-  });
+  const { data, error } = await authClient.signOut();
   if (error) {
     throw error;
   }
