@@ -1,11 +1,11 @@
 import { type } from "arktype";
 
 const Email = type("string.email").configure({
-  problem: () => "Invalid email, Plz provide a valid one.",
+  message: () => "Invalid email, Plz provide a valid one.",
 });
 
-const Password = type("string <= 8").configure({
-  problem: () => "Password must be at least 8 chars long.",
+const Password = type("string >= 8").configure({
+  message: () => "Password must be at least 8 chars long.",
 });
 
 export const loginSchema = type({
@@ -17,11 +17,16 @@ export const signupSchema = type({
   email: Email,
   name: type.string
     .atLeastLength(3)
-    .configure({ problem: () => "Must provide a valid name." }),
+    .configure({ message: () => "Must provide a valid name." }),
   password: Password,
-  confirmPassword: "string",
-}).narrow(({ password, confirmPassword }, ctx) => {
-  return password === confirmPassword
-    ? true
-    : ctx.mustBe("Password do not match");
+  confirmPassword: type.string,
+}).narrow((data, ctx) => {
+  if (data.password !== data.confirmPassword) {
+    return ctx.reject({
+      expected: "Passwords must match.",
+      actual: "",
+      path: ["confirmPassword"],
+    });
+  }
+  return true;
 });

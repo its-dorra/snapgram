@@ -37,9 +37,10 @@ export default function TextField({
         ) : (
           <Textarea
             className={cn(
-              "bg-dark-4 w-full rounded-sm border-none outline-none focus-visible:ring-0",
+              "bg-dark-4 w-full resize-none rounded-sm border-none outline-none focus-visible:ring-0",
               className,
             )}
+            rows={4}
             value={field.state.value}
             onChange={(e) => field.handleChange(e.target.value)}
             onBlur={field.handleBlur}
