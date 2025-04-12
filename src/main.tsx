@@ -25,7 +25,7 @@ const router = createRouter({
   defaultStructuralSharing: true,
   defaultPreloadStaleTime: 0,
   defaultViewTransition: true,
-  defaultPendingComponent: Loader,
+  defaultPendingComponent: () => <Loader className="h-screen" />,
   defaultErrorComponent: ErrorComponent,
 });
 

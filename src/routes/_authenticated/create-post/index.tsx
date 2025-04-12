@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import PhotoDropzone from "@/features/posts/components/photo-dropzone";
 import { createPostSchema } from "@/features/posts/schema";
 import { useAppForm } from "@/hooks/useForm";
+import { useNavigateBack } from "@/hooks/useNavigateBack";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_authenticated/create-post/")({
@@ -11,6 +12,8 @@ export const Route = createFileRoute("/_authenticated/create-post/")({
 });
 
 function RouteComponent() {
+  const navigateBack = useNavigateBack();
+
   const form = useAppForm({
     defaultValues: {
       caption: "",
@@ -64,6 +67,10 @@ function RouteComponent() {
             <Button
               className="cursor-pointer border border-white/30 transition-colors"
               variant="ghost"
+              type="button"
+              onClick={() => {
+                navigateBack();
+              }}
             >
               Cancel
             </Button>

@@ -43,7 +43,7 @@ function AppLayout() {
         <div
           className="flex items-center justify-center px-6 pt-2 lg:px-16 lg:py-8"
           style={{
-            ...(isMobile && { paddingBottom: `${paddingBottom + 20}px` }),
+            ...(isMobile && { paddingBottom: `${paddingBottom + 24}px` }),
           }}
         >
           <Outlet />

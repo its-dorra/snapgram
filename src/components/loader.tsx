@@ -1,11 +1,11 @@
-import React from "react";
+import { cn } from "@/lib/utils";
 
-const Loader: React.FC = () => {
+function Loader({ className }: { className?: string }) {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="w-10 h-10 border-4 border-gray-800 border-t-blue-500 rounded-full animate-spin" />
+    <div className={cn("flex items-center justify-center", className)}>
+      <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-800 border-t-blue-500" />
     </div>
   );
-};
+}
 
 export default Loader;

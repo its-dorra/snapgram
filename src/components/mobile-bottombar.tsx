@@ -9,7 +9,7 @@ export default function MobileBottombar({
   return (
     <nav
       ref={ref}
-      className="fixed right-0 bottom-0 left-0 flex items-center justify-around bg-black py-3 lg:hidden"
+      className="fixed right-0 bottom-0 left-0 flex items-center justify-around border-t border-white/20 bg-black py-3 lg:hidden"
     >
       {bottombarLinks.map((link) => (
         <Link
