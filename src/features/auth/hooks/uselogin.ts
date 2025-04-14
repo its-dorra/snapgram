@@ -1,5 +1,5 @@
 import type { BetterFetchError } from "@better-fetch/fetch";
-import { queryKeys } from "@/lib/queryKeys";
+import { queryKeys } from "@/lib/query-keys";
 import { login } from "@/services/auth-api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getRouteApi } from "@tanstack/react-router";

@@ -6,10 +6,15 @@ import { useDropzone } from "react-dropzone";
 interface PhotoDropzoneProps {
   error: string | null;
   onChange: (file: File) => void;
+  previewImage: string | undefined;
 }
 
-export default function PhotoDropzone({ error, onChange }: PhotoDropzoneProps) {
-  const [preview, setPreview] = useState<string | null>(null);
+export default function PhotoDropzone({
+  previewImage,
+  error,
+  onChange,
+}: PhotoDropzoneProps) {
+  const [preview, setPreview] = useState<string | undefined>(previewImage);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {

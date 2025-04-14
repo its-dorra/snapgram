@@ -1,3 +1,4 @@
+import { paginationSchema } from "@/lib/schema";
 import { type } from "arktype";
 
 export const createPostSchema = type({
@@ -15,8 +16,11 @@ export const createPostSchema = type({
   }),
 });
 
+export const editPostSchema = createPostSchema.omit("imageFile").partial();
+
 export const postSchema = type({
   isLikedByCurrentUser: "boolean",
+  isSavedByCurrentUser: "boolean",
   location: "string",
   id: "string",
   createdAt: "string.date.parse",
@@ -37,12 +41,6 @@ export const postsSchema = type({
   success: "boolean",
   data: {
     posts: postSchema.array(),
-    pagination: {
-      page: "number.integer >= 1",
-      perPage: "number.integer >= 1",
-      totalCount: "number.integer >= 0",
-      totalPages: "number.integer >= 0",
-      hasNextPage: "boolean",
-    },
+    pagination: paginationSchema,
   },
 });

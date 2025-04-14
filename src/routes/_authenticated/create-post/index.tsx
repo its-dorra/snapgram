@@ -2,6 +2,7 @@ import { addPostIcon } from "@/assets";
 import PageHeader from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import PhotoDropzone from "@/features/posts/components/photo-dropzone";
+import { useCreatePost } from "@/features/posts/hooks/useCreatePost";
 import { createPostSchema } from "@/features/posts/schema";
 import { useAppForm } from "@/hooks/useForm";
 import { useNavigateBack } from "@/hooks/useNavigateBack";
@@ -13,6 +14,7 @@ export const Route = createFileRoute("/_authenticated/create-post/")({
 
 function RouteComponent() {
   const navigateBack = useNavigateBack();
+  const mutation = useCreatePost();
 
   const form = useAppForm({
     defaultValues: {

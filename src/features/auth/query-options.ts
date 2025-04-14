@@ -1,4 +1,4 @@
-import { queryKeys } from "@/lib/queryKeys";
+import { queryKeys } from "@/lib/query-keys";
 import { queryOptions } from "@tanstack/react-query";
 import { authClient } from "../../services/auth-client";
 
