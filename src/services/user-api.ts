@@ -1,5 +1,5 @@
 import { postsSchema } from "@/features/posts/schema";
-import { userInfoSchema } from "@/features/users/schema";
+import { userInfoSchema, userLikedPostsSchema } from "@/features/users/schema";
 import { paginationQuerySchema } from "@/lib/schema";
 import { createFetch, createSchema } from "@better-fetch/fetch";
 import { type } from "arktype";
@@ -20,6 +20,9 @@ const arktypeSchema = createSchema({
     }),
     query: paginationQuerySchema,
     output: postsSchema,
+  },
+  "@get/users/me/likes": {
+    output: userLikedPostsSchema,
   },
 });
 
@@ -49,4 +52,8 @@ export function getUserPosts({
     params: { id },
     query: { page, perPage },
   });
+}
+
+export function getUserLikedPosts() {
+  return $fetch("@get/users/me/likes");
 }

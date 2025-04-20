@@ -15,14 +15,15 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated/route
 import { Route as authRouteImport } from './routes/(auth)/route'
 import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedPostsImport } from './routes/_authenticated/posts'
-import { Route as AuthenticatedUserIdImport } from './routes/_authenticated/$userId'
 import { Route as authSignupImport } from './routes/(auth)/signup'
 import { Route as authLoginImport } from './routes/(auth)/login'
 import { Route as AuthenticatedSavedIndexImport } from './routes/_authenticated/saved/index'
 import { Route as AuthenticatedExploreIndexImport } from './routes/_authenticated/explore/index'
 import { Route as AuthenticatedCreatePostIndexImport } from './routes/_authenticated/create-post/index'
 import { Route as AuthenticatedAllUsersIndexImport } from './routes/_authenticated/all-users/index'
+import { Route as AuthenticatedUserIdIndexImport } from './routes/_authenticated/$userId/index'
 import { Route as AuthenticatedPostsPostIdImport } from './routes/_authenticated/posts/$postId'
+import { Route as AuthenticatedUserIdEditImport } from './routes/_authenticated/$userId/edit'
 import { Route as AuthenticatedPostsPostIdEditImport } from './routes/_authenticated/posts/$postId.edit'
 
 // Create/Update Routes
@@ -46,12 +47,6 @@ const AuthenticatedIndexRoute = AuthenticatedIndexImport.update({
 const AuthenticatedPostsRoute = AuthenticatedPostsImport.update({
   id: '/posts',
   path: '/posts',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-
-const AuthenticatedUserIdRoute = AuthenticatedUserIdImport.update({
-  id: '/$userId',
-  path: '/$userId',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
@@ -94,10 +89,22 @@ const AuthenticatedAllUsersIndexRoute = AuthenticatedAllUsersIndexImport.update(
   } as any,
 )
 
+const AuthenticatedUserIdIndexRoute = AuthenticatedUserIdIndexImport.update({
+  id: '/$userId/',
+  path: '/$userId/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+
 const AuthenticatedPostsPostIdRoute = AuthenticatedPostsPostIdImport.update({
   id: '/$postId',
   path: '/$postId',
   getParentRoute: () => AuthenticatedPostsRoute,
+} as any)
+
+const AuthenticatedUserIdEditRoute = AuthenticatedUserIdEditImport.update({
+  id: '/$userId/edit',
+  path: '/$userId/edit',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
 const AuthenticatedPostsPostIdEditRoute =
@@ -139,13 +146,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authSignupImport
       parentRoute: typeof authRouteImport
     }
-    '/_authenticated/$userId': {
-      id: '/_authenticated/$userId'
-      path: '/$userId'
-      fullPath: '/$userId'
-      preLoaderRoute: typeof AuthenticatedUserIdImport
-      parentRoute: typeof AuthenticatedRouteImport
-    }
     '/_authenticated/posts': {
       id: '/_authenticated/posts'
       path: '/posts'
@@ -160,12 +160,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/$userId/edit': {
+      id: '/_authenticated/$userId/edit'
+      path: '/$userId/edit'
+      fullPath: '/$userId/edit'
+      preLoaderRoute: typeof AuthenticatedUserIdEditImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/posts/$postId': {
       id: '/_authenticated/posts/$postId'
       path: '/$postId'
       fullPath: '/posts/$postId'
       preLoaderRoute: typeof AuthenticatedPostsPostIdImport
       parentRoute: typeof AuthenticatedPostsImport
+    }
+    '/_authenticated/$userId/': {
+      id: '/_authenticated/$userId/'
+      path: '/$userId'
+      fullPath: '/$userId'
+      preLoaderRoute: typeof AuthenticatedUserIdIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
     }
     '/_authenticated/all-users/': {
       id: '/_authenticated/all-users/'
@@ -247,9 +261,10 @@ const AuthenticatedPostsRouteWithChildren =
   AuthenticatedPostsRoute._addFileChildren(AuthenticatedPostsRouteChildren)
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedUserIdRoute: typeof AuthenticatedUserIdRoute
   AuthenticatedPostsRoute: typeof AuthenticatedPostsRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedUserIdEditRoute: typeof AuthenticatedUserIdEditRoute
+  AuthenticatedUserIdIndexRoute: typeof AuthenticatedUserIdIndexRoute
   AuthenticatedAllUsersIndexRoute: typeof AuthenticatedAllUsersIndexRoute
   AuthenticatedCreatePostIndexRoute: typeof AuthenticatedCreatePostIndexRoute
   AuthenticatedExploreIndexRoute: typeof AuthenticatedExploreIndexRoute
@@ -257,9 +272,10 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedUserIdRoute: AuthenticatedUserIdRoute,
   AuthenticatedPostsRoute: AuthenticatedPostsRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedUserIdEditRoute: AuthenticatedUserIdEditRoute,
+  AuthenticatedUserIdIndexRoute: AuthenticatedUserIdIndexRoute,
   AuthenticatedAllUsersIndexRoute: AuthenticatedAllUsersIndexRoute,
   AuthenticatedCreatePostIndexRoute: AuthenticatedCreatePostIndexRoute,
   AuthenticatedExploreIndexRoute: AuthenticatedExploreIndexRoute,
@@ -274,9 +290,10 @@ export interface FileRoutesByFullPath {
   '': typeof AuthenticatedRouteRouteWithChildren
   '/login': typeof authLoginRoute
   '/signup': typeof authSignupRoute
-  '/$userId': typeof AuthenticatedUserIdRoute
   '/posts': typeof AuthenticatedPostsRouteWithChildren
+  '/$userId/edit': typeof AuthenticatedUserIdEditRoute
   '/posts/$postId': typeof AuthenticatedPostsPostIdRouteWithChildren
+  '/$userId': typeof AuthenticatedUserIdIndexRoute
   '/all-users': typeof AuthenticatedAllUsersIndexRoute
   '/create-post': typeof AuthenticatedCreatePostIndexRoute
   '/explore': typeof AuthenticatedExploreIndexRoute
@@ -288,9 +305,10 @@ export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
   '/login': typeof authLoginRoute
   '/signup': typeof authSignupRoute
-  '/$userId': typeof AuthenticatedUserIdRoute
   '/posts': typeof AuthenticatedPostsRouteWithChildren
+  '/$userId/edit': typeof AuthenticatedUserIdEditRoute
   '/posts/$postId': typeof AuthenticatedPostsPostIdRouteWithChildren
+  '/$userId': typeof AuthenticatedUserIdIndexRoute
   '/all-users': typeof AuthenticatedAllUsersIndexRoute
   '/create-post': typeof AuthenticatedCreatePostIndexRoute
   '/explore': typeof AuthenticatedExploreIndexRoute
@@ -304,10 +322,11 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/(auth)/login': typeof authLoginRoute
   '/(auth)/signup': typeof authSignupRoute
-  '/_authenticated/$userId': typeof AuthenticatedUserIdRoute
   '/_authenticated/posts': typeof AuthenticatedPostsRouteWithChildren
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/$userId/edit': typeof AuthenticatedUserIdEditRoute
   '/_authenticated/posts/$postId': typeof AuthenticatedPostsPostIdRouteWithChildren
+  '/_authenticated/$userId/': typeof AuthenticatedUserIdIndexRoute
   '/_authenticated/all-users/': typeof AuthenticatedAllUsersIndexRoute
   '/_authenticated/create-post/': typeof AuthenticatedCreatePostIndexRoute
   '/_authenticated/explore/': typeof AuthenticatedExploreIndexRoute
@@ -322,9 +341,10 @@ export interface FileRouteTypes {
     | ''
     | '/login'
     | '/signup'
-    | '/$userId'
     | '/posts'
+    | '/$userId/edit'
     | '/posts/$postId'
+    | '/$userId'
     | '/all-users'
     | '/create-post'
     | '/explore'
@@ -335,9 +355,10 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/signup'
-    | '/$userId'
     | '/posts'
+    | '/$userId/edit'
     | '/posts/$postId'
+    | '/$userId'
     | '/all-users'
     | '/create-post'
     | '/explore'
@@ -349,10 +370,11 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/(auth)/login'
     | '/(auth)/signup'
-    | '/_authenticated/$userId'
     | '/_authenticated/posts'
     | '/_authenticated/'
+    | '/_authenticated/$userId/edit'
     | '/_authenticated/posts/$postId'
+    | '/_authenticated/$userId/'
     | '/_authenticated/all-users/'
     | '/_authenticated/create-post/'
     | '/_authenticated/explore/'
@@ -395,9 +417,10 @@ export const routeTree = rootRoute
     "/_authenticated": {
       "filePath": "_authenticated/route.tsx",
       "children": [
-        "/_authenticated/$userId",
         "/_authenticated/posts",
         "/_authenticated/",
+        "/_authenticated/$userId/edit",
+        "/_authenticated/$userId/",
         "/_authenticated/all-users/",
         "/_authenticated/create-post/",
         "/_authenticated/explore/",
@@ -412,10 +435,6 @@ export const routeTree = rootRoute
       "filePath": "(auth)/signup.tsx",
       "parent": "/(auth)"
     },
-    "/_authenticated/$userId": {
-      "filePath": "_authenticated/$userId.tsx",
-      "parent": "/_authenticated"
-    },
     "/_authenticated/posts": {
       "filePath": "_authenticated/posts.tsx",
       "parent": "/_authenticated",
@@ -427,12 +446,20 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/index.tsx",
       "parent": "/_authenticated"
     },
+    "/_authenticated/$userId/edit": {
+      "filePath": "_authenticated/$userId/edit.tsx",
+      "parent": "/_authenticated"
+    },
     "/_authenticated/posts/$postId": {
       "filePath": "_authenticated/posts/$postId.tsx",
       "parent": "/_authenticated/posts",
       "children": [
         "/_authenticated/posts/$postId/edit"
       ]
+    },
+    "/_authenticated/$userId/": {
+      "filePath": "_authenticated/$userId/index.tsx",
+      "parent": "/_authenticated"
     },
     "/_authenticated/all-users/": {
       "filePath": "_authenticated/all-users/index.tsx",

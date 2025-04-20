@@ -20,10 +20,10 @@ export const Route = createFileRoute("/_authenticated/saved/")({
 
 function RouteComponent() {
   return (
-    <main className="flex w-full flex-col gap-y-8">
+    <main className="flex w-full max-w-4xl flex-col gap-y-8">
       <PageHeader icon={saveIcon} title="Saved Posts" />
 
-      <section className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6 px-2">
+      <section className="posts-grid px-2">
         {posts.map((post, index) => (
           <Link key={index} to="/posts/$postId" params={{ postId: `${index}` }}>
             <figure className="group relative aspect-square overflow-clip rounded-3xl transition-opacity hover:opacity-80">

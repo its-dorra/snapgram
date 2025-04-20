@@ -1,4 +1,5 @@
 import { type } from "arktype";
+import { postSchema } from "../posts/schema";
 
 export const userInfoSchema = type({
   id: "string",
@@ -8,4 +9,11 @@ export const userInfoSchema = type({
   followersCount: "number.integer >= 0",
   followingsCount: "number.integer >= 0",
   postsCount: "number.integer >= 0",
+});
+
+export const userLikedPostsSchema = type({
+  success: "true",
+  data: type({
+    post: postSchema.omit("isLikedByCurrentUser", "user"),
+  }).array(),
 });

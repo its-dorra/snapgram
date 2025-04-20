@@ -1,12 +1,13 @@
 import { logo, sidebarLinks } from "@/assets";
-import { Link } from "@tanstack/react-router";
 import LogoutButton from "@/features/auth/components/logout-button";
+import CurrentUserInfoSidebar from "@/features/users/components/current-user-info-sidebar";
+import { Link } from "@tanstack/react-router";
 
 export default function Sidebar() {
   return (
     <aside className="sticky top-0 left-0 hidden h-screen flex-col gap-8 px-8 py-8 lg:flex">
       <img className="w-44" src={logo} alt="logo" />
-      <div>user</div>
+      <CurrentUserInfoSidebar />
 
       <div className="inline-flex flex-col gap-4">
         {sidebarLinks.map((link) => (

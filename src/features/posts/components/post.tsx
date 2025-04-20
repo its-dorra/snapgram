@@ -39,6 +39,7 @@ export default function Post({
         <figure className="mt-4">
           <img
             className="aspect-square w-full rounded-4xl object-cover"
+            loading="lazy"
             src={imageUrl}
             alt="post image url"
           />

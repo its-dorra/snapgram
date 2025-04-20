@@ -3,7 +3,7 @@ import Avatar from "boring-avatars";
 
 interface UserAvatarProps {
   name: string;
-  src?: string;
+  src?: string | null;
   className?: string;
 }
 
@@ -15,6 +15,10 @@ export default function UserAvatar({ name, className, src }: UserAvatarProps) {
       alt={`Profile picture of ${name}`}
     />
   ) : (
-    <Avatar name={name} className={cn("size-8 rounded-full", className)} />
+    <Avatar
+      variant="beam"
+      name={name}
+      className={cn("size-8 rounded-full", className)}
+    />
   );
 }
